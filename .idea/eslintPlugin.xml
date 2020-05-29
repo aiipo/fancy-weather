@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ESLintProjectComponent">
+    <option name="eslintRcFile" value="" />
+    <option name="eslintExecutable" value="D:\projectsCode\fancy-weather\node_modules\.bin\eslint.cmd" />
+    <option name="nodeInterpreter" value="D:\Apps\nodejs\node.exe" />
+    <option name="pluginEnabled" value="true" />
+    <option name="ext" value=".js,.jsx" />
+  </component>
+</project>
