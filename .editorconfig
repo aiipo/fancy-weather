@@ -46,7 +46,7 @@ ij_scss_space_before_opening_brace = true
 ij_scss_use_double_quotes = true
 ij_scss_value_alignment = 0
 
-[{*.cjs,*.js,Route}]
+[{*.cjs,*.js,*jsx,Route}]
 ij_continuation_indent_size = 2
 ij_javascript_align_imports = false
 ij_javascript_align_multiline_array_initializer_expression = false

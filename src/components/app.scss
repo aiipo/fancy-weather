@@ -1,0 +1,21 @@
+.app {
+  padding: 0 20px;
+  background-color: powderblue;
+  color: white;
+  overflow-x: hidden;
+
+  &__container {
+    margin: auto;
+    padding: 25px 0;
+    max-width: 1000px;
+    height: 100vh;
+  }
+
+  &__background {
+    background-blend-mode: darken;
+    background-color: rgba(0, 0, 0, 0.4);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+}

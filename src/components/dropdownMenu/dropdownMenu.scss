@@ -1,0 +1,13 @@
+.dropdown-list {
+  $color: rgba(174, 181, 185, 0.5);
+
+  padding: 0 4px;
+  background: $color;
+  color: white;
+  border-radius: 5px;
+
+  &__item {
+    font-size: 1.2em;
+    background-color: darken($color, 25%);
+  }
+}

@@ -1,0 +1,26 @@
+.following-day {
+  text-transform: uppercase;
+
+  &__day-of-week {
+    text-transform: uppercase;
+    font-size: 5vmin;
+  }
+
+  &__degree {
+    display: flex;
+    flex-grow: 1;
+    font-size: 6vmin;
+
+    .following-day__icon {
+      display: flex;
+      max-width: 170px;
+      max-height: 105px;
+
+      .icon__condition {
+        height: calc(10% + 4vw);
+        max-height: 90%;
+        min-width: 16px;
+      }
+    }
+  }
+}

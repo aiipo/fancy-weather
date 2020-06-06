@@ -1,0 +1,39 @@
+.degree-toggle {
+  display: flex;
+  border-radius: 5px;
+  color: white;
+  user-select: none;
+
+  input[type="radio"] {
+    display: none;
+    outline: rgb(59, 153, 252) auto 5px;
+  }
+
+  .checked {
+    background: rgba(76, 82, 85, 0.4);
+    color: rgba(255, 255, 255, 0.4);
+    border-radius: inherit;
+  }
+
+  .form-check {
+    height: 100%;
+    width: 44px;
+    background-color: rgba(174, 181, 185, 0.5);
+
+    &:first-child {
+      border-radius: 5px 0 0 5px;
+    }
+
+    &:last-child {
+      border-radius: 0 5px 5px 0;
+    }
+
+    &-label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
