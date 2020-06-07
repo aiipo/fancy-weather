@@ -19,8 +19,27 @@ function getImageURL(options) {
   return `${result}`;
 }
 
+function getLocationByIp() {
+  return fetch('https://freegeoip.app/json/')
+    .then(response => response.json())
+    .catch(err => console.error(err));
+}
+
+function getInitialLocation() {
+  return new Promise(resolve => {
+    if (navigator.geolocation && window.location.protocol === 'https:') {
+      navigator.geolocation.getCurrentPosition(pos => {
+        resolve(`(${pos.coords.latitude},${pos.coords.longitude})`);
+      }, () => resolve(getLocationByIp()));
+    } else {
+      resolve(getLocationByIp());
+    }
+  });
+}
+
 export {
   getWeatherURL,
   getWeatherIconURL,
   getImageURL,
+  getInitialLocation,
 };

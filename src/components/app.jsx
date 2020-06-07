@@ -15,7 +15,7 @@ class App extends React.Component {
     this.state = {
       degreeType: helperInit.initDegreeType(),
       lang: helperInit.initLanguage(),
-      local: '',
+      location: {},
       isForecastLoaded: false,
       isBackgroundLoaded: false,
       imagePage: 1,
@@ -26,8 +26,19 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    this.updateCurrentLocation();
     this.updateWeather();
     this.updateBackgroundImage();
+  }
+
+  updateCurrentLocation = () => {
+    const getLocation = async () => {
+      const location = await helper.getInitialLocation();
+      this.setState({
+        location,
+      });
+    };
+    getLocation();
   }
 
   setBackgroundImage = imageUrl => {
@@ -92,7 +103,8 @@ class App extends React.Component {
   }
 
   updateWeather = () => {
-    fetch(CONFIG.proxyURL + helper.getWeatherURL(), {
+    const { location: { latitude, longitude } } = this.state;
+    fetch(CONFIG.proxyURL + helper.getWeatherURL(latitude, longitude), {
       headers: {
         'Access-Control-Allow-Origin': CONFIG.API.weather.yandex.url,
         'X-Yandex-API-Key': CONFIG.API.weather.yandex.key,
@@ -121,6 +133,7 @@ class App extends React.Component {
       isForecastLoaded,
       isBackgroundLoaded,
       fullData,
+      location,
     } = this.state;
 
     return (
@@ -139,6 +152,7 @@ class App extends React.Component {
                   />
                   <Weather
                     DATA={fullData}
+                    LOCATION={location}
                     degreeType={degreeType}
                     degreeTypes={CONFIG.degreeTypes}
                   />

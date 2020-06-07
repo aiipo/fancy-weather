@@ -7,11 +7,15 @@ import * as helperTime from '../../helpers/helperTime';
 import './weather.scss';
 
 function Weather({
-  DATA, degreeType, degreeTypes,
+  DATA,
+  degreeType,
+  degreeTypes,
+  LOCATION,
 }) {
   const { now_dt, fact, forecasts } = DATA;
   const [curTime, setCurTime] = useState(new Date());
   const updatedTime = new Date(Date.parse(now_dt));
+  const { city, country_name: countryName } = LOCATION;
 
   useEffect(() => {
     setInterval(() => setCurTime(new Date()), 1000);
@@ -35,13 +39,12 @@ function Weather({
       );
     }
     return result;
-
   }
 
   return (
     <div className="weather">
       <div className="weather__title">
-        <div className="weather__city">City</div>
+        <div className="weather__city">{`${city}, ${countryName}`}</div>
         <div className="weather__current-date">{helperTime.getCurrentTime(curTime)}</div>
       </div>
       <div className="weather__forecast">
