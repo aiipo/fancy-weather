@@ -192,6 +192,7 @@ class App extends React.Component {
                   />
                   <Weather
                     DATA={fullData}
+                    mapApi={CONFIG.API.maps.yandex}
                     LOCATION={location}
                     degreeType={degreeType}
                     degreeTypes={CONFIG.degreeTypes}

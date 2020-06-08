@@ -15,7 +15,7 @@ const CONFIG = {
       },
     },
     maps: {
-      google: {
+      yandex: {
         url: 'https://maps.googleapis.com/maps/api/js?',
         key: '',
       },

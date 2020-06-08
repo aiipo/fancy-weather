@@ -1,27 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  YMaps,
+  Map,
+  Placemark,
+  SearchControl
+} from 'react-yandex-maps';
+import TYPES from './types';
 import './map.scss';
 
-function Map({ URL, apiKey, options }) {
-  function initMap() {
-
-  }
-
+function MapContainer({ apiKey, options }) {
   return (
-    <div className="map">
-      <script
-        async
-        defer
-        src={`${URL}key=${apiKey}callback=initMap`}
-      />
-    </div>
+    <YMaps enterprise query={{ apikey: apiKey }}>
+      <Map
+        className="map__yandex"
+        state={options}
+      >
+        <Placemark
+          geometry={{ type: TYPES.Geometry.Point, coordinates: options.center }}
+        />
+        <SearchControl />
+      </Map>
+    </YMaps>
   );
 }
 
-Map.propTypes = {
+MapContainer.propTypes = {
+  apiKey: PropTypes.string.isRequired,
+  options: PropTypes.object,
 };
 
-Map.defaultProps = {
+MapContainer.defaultProps = {
+  options: {
+    center: [56.85, 53.2],
+    zoom: 8,
+  },
 };
 
-export default Map;
+export default MapContainer;

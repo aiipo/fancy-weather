@@ -5,15 +5,22 @@ import Today from '../today/today';
 import FollowingDay from '../followingDay/followingDay';
 import * as helperTime from '../../helpers/helperTime';
 import './weather.scss';
+import MapContainer from '../map/map';
 
 function Weather({
   DATA,
+  mapApi,
   degreeType,
   degreeTypes,
   LOCATION,
   isForecastLoaded,
 }) {
-  const { city, country_name: countryName } = LOCATION;
+  const {
+    city,
+    country_name: countryName,
+    latitude,
+    longitude,
+  } = LOCATION;
   const { now_dt, fact, forecasts } = DATA;
   const updatedTime = new Date(Date.parse(now_dt));
   const [curTime, setCurTime] = useState(new Date());
@@ -53,21 +60,44 @@ function Weather({
     return result;
   }
 
+  function getMapOptions() {
+    return {
+      center: [latitude, longitude],
+      zoom: 7,
+    };
+  }
+
   return (
     <div className="weather">
-      <div className="weather__title">
-        <div className="weather__city">
-          {curLocation}
+      <div className="weather__details details">
+        <div className="details__title">
+          <div className="weather__city">
+            {curLocation}
+          </div>
+          <div className="weather__current-date">{helperTime.getCurrentTime(curTime)}</div>
         </div>
-        <div className="weather__current-date">{helperTime.getCurrentTime(curTime)}</div>
+        <div className="details__forecast forecast">
+          <div className="forecast__data days">
+            <Today DATA={fact} convertTemperature={convertTemperature} />
+            <div className="days__following">
+              {renderFollowingDays()}
+            </div>
+          </div>
+        </div>
+        <div className="details__updated-date">Updated: {helperTime.getUpdatedTime(updatedTime)}</div>
       </div>
-      <div className="weather__forecast">
-        <Today DATA={fact} convertTemperature={convertTemperature} />
-        <div className="following__days">
-          {renderFollowingDays()}
+      <div className="weather__map map">
+        <div className="map__container">
+          <MapContainer
+            options={getMapOptions()}
+            apiKey={mapApi.key}
+          />
+        </div>
+        <div className="map__coordinates">
+          <div className="coordinates__latitude">{`latitude: ${latitude}`}</div>
+          <div className="coordinates__longitude">{`longitude: ${longitude}`}</div>
         </div>
       </div>
-      <div className="weather__updated-date">Updated: {helperTime.getUpdatedTime(updatedTime)}</div>
     </div>
   );
 }
