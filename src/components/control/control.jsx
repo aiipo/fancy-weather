@@ -8,9 +8,13 @@ import DropdownList from '../dropdownMenu/dropdown';
 import './control.scss';
 
 function Control({
-  CONFIG, searchCity, updateBackground, updateForecastDegree, degreeType,
+  CONFIG,
+  searchCity,
+  updateBackground,
+  updateForecastDegree,
+  degreeType,
 }) {
-  const searchPlaceholder = 'Search city or ZIP';
+  const searchPlaceholder = 'Search city';
 
   return (
     <div className="control-buttons">

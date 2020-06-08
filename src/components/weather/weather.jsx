@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import PropTypes, { object } from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import Today from '../today/today';
 import FollowingDay from '../followingDay/followingDay';
@@ -11,15 +11,27 @@ function Weather({
   degreeType,
   degreeTypes,
   LOCATION,
+  isForecastLoaded,
 }) {
-  const { now_dt, fact, forecasts } = DATA;
-  const [curTime, setCurTime] = useState(new Date());
-  const updatedTime = new Date(Date.parse(now_dt));
   const { city, country_name: countryName } = LOCATION;
+  const { now_dt, fact, forecasts } = DATA;
+  const updatedTime = new Date(Date.parse(now_dt));
+  const [curTime, setCurTime] = useState(new Date());
+  const [curLocation, setCurLocation] = useState();
 
   useEffect(() => {
     setInterval(() => setCurTime(new Date()), 1000);
   }, []);
+
+  function getCurrentLocation(country, place) {
+    return country !== place ? `${place}, ${country}` : country;
+  }
+
+  useEffect(() => {
+    if (isForecastLoaded) {
+      setCurLocation(getCurrentLocation(countryName, city));
+    }
+  }, [isForecastLoaded, countryName, city]);
 
   function convertTemperature(degree) {
     const result = degreeType !== degreeTypes.fahrenheit ? degree : (degree * 9) / 5 + 32;
@@ -44,7 +56,9 @@ function Weather({
   return (
     <div className="weather">
       <div className="weather__title">
-        <div className="weather__city">{`${city}, ${countryName}`}</div>
+        <div className="weather__city">
+          {curLocation}
+        </div>
         <div className="weather__current-date">{helperTime.getCurrentTime(curTime)}</div>
       </div>
       <div className="weather__forecast">
@@ -59,7 +73,7 @@ function Weather({
 }
 
 Weather.propTypes = {
-  degreeTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  degreeTypes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 

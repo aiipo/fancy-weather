@@ -19,6 +19,10 @@ function getImageURL(options) {
   return `${result}`;
 }
 
+function getLocationURL(geocode) {
+  return `${CONFIG.API.geocoding.yandex.url}format=json&results=1&apikey=${CONFIG.API.geocoding.yandex.key}&geocode=${geocode}`;
+}
+
 function getLocationByIp() {
   return fetch('https://freegeoip.app/json/')
     .then(response => response.json())
@@ -37,9 +41,67 @@ function getInitialLocation() {
   });
 }
 
+function findLocation(location) {
+  return fetch(getLocationURL(location))
+    .then(res => res.json())
+    .then(result => {
+      const data = result.response.GeoObjectCollection.featureMember[0];
+      if (data) {
+        return {
+          ok: true,
+          data,
+        };
+      }
+      return {
+        code: 1,
+        text: location,
+      };
+    })
+    .catch(() => ({
+      code: 1,
+      text: location,
+    }));
+}
+
+function getLocation(location) {
+  try {
+    const {
+      GeoObject: {
+        Point: { pos },
+        metaDataProperty: {
+          GeocoderMetaData: {
+            Address: {
+              Components,
+            },
+          },
+        },
+      },
+    } = location;
+    if (pos) {
+      const position = pos.split(' ');
+      return {
+        ok: true,
+        data: {
+          latitude: position[1],
+          longitude: position[0],
+          country_name: Components[0].name,
+          city: Components[Components.length - 1].name,
+        },
+      };
+    }
+  } catch (e) {
+  }
+  return {
+    code: 1,
+    text: location,
+  };
+}
+
 export {
   getWeatherURL,
   getWeatherIconURL,
   getImageURL,
   getInitialLocation,
+  findLocation,
+  getLocation,
 };

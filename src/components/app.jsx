@@ -16,22 +16,33 @@ class App extends React.Component {
       degreeType: helperInit.initDegreeType(),
       lang: helperInit.initLanguage(),
       location: {},
+      isInitForecast: false,
       isForecastLoaded: false,
       isBackgroundLoaded: false,
       imagePage: 1,
-      error: null,
+      isError: false,
+      errors: [],
       fullData: {},
     };
     this.appRef = React.createRef();
   }
 
   componentDidMount() {
-    this.updateCurrentLocation();
+    this.initLocation();
     this.updateWeather();
     this.updateBackgroundImage();
   }
 
-  updateCurrentLocation = () => {
+  setErrors(error) {
+    const { errors } = this.state;
+    errors.push(error);
+    this.setState({
+      errors,
+      isError: true,
+    });
+  }
+
+  initLocation = () => {
     const getLocation = async () => {
       const location = await helper.getInitialLocation();
       this.setState({
@@ -60,7 +71,34 @@ class App extends React.Component {
     };
   }
 
-  searchCity = () => {
+  updateLocation = location => {
+    if (location) {
+      const update = async () => {
+        const foundLocation = await helper.findLocation(location);
+        if (foundLocation.ok) {
+          const getLocation = helper.getLocation(foundLocation.data);
+          if (getLocation.ok) {
+            this.setState({
+              isForecastLoaded: false,
+              location: getLocation.data,
+            }, () => this.updateWeather());
+          } else {
+            this.setErrors(getLocation);
+          }
+        } else {
+          this.setErrors(foundLocation);
+        }
+      };
+      update();
+    }
+  }
+
+  searchCity = event => {
+    event.preventDefault();
+    const search = event.target.getElementsByClassName('search-input')[0];
+    if (search && search.value) {
+      this.updateLocation(search.value);
+    }
   }
 
   updateForecastDegree = event => {
@@ -116,6 +154,7 @@ class App extends React.Component {
           this.setState({
             fullData: data,
             isForecastLoaded: true,
+            isInitForecast: true,
           });
         },
         error => {
@@ -130,6 +169,7 @@ class App extends React.Component {
   render() {
     const {
       degreeType,
+      isInitForecast,
       isForecastLoaded,
       isBackgroundLoaded,
       fullData,
@@ -140,8 +180,8 @@ class App extends React.Component {
       <div className="app" ref={this.appRef}>
         <div className="app__container">
           {
-            isForecastLoaded
-              ? (
+            (isForecastLoaded || isInitForecast)
+              && (
                 <>
                   <Control
                     CONFIG={CONFIG}
@@ -155,13 +195,14 @@ class App extends React.Component {
                     LOCATION={location}
                     degreeType={degreeType}
                     degreeTypes={CONFIG.degreeTypes}
+                    isForecastLoaded={isForecastLoaded}
                   />
                 </>
               )
-              : <Loader />
           }
           {
-            !isBackgroundLoaded && <Loader />
+            (!isBackgroundLoaded && <Loader />)
+            || (!isForecastLoaded && <Loader />)
           }
         </div>
       </div>

@@ -4,7 +4,7 @@ const CONFIG = {
   API: {
     geocoding: {
       yandex: {
-        url: '',
+        url: 'https://geocode-maps.yandex.ru/1.x/?',
         key: '',
       },
     },
@@ -43,6 +43,10 @@ const CONFIG = {
     location: 'location',
     lang: 'language',
     degreeType: 'degreeType',
+  },
+
+  errorCodes: {
+    1: 'location is not find',
   },
 };
 

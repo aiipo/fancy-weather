@@ -4,10 +4,10 @@ import './search.scss';
 
 function Search({ search, searchPlaceholder }) {
   return (
-    <div className="search-container">
-      <input type="text" className="search-input" onChange={search} placeholder={searchPlaceholder} />
+    <form className="search-container" onSubmit={search}>
+      <input type="text" className="search-input" placeholder={searchPlaceholder} />
       <button type="submit" className="search-button">SEARCH</button>
-    </div>
+    </form>
   );
 }
 
