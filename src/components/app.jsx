@@ -116,7 +116,7 @@ class App extends React.Component {
         time: helperTime.getTimeOfDay(date.getHours()),
       },
       page: imagePage,
-      key: CONFIG.API.images.unsplash.key,
+      key: process.env.REACT_APP_IMAGES_UNSPLASH,
     };
     return helper.getImageURL(options);
   }
@@ -145,7 +145,7 @@ class App extends React.Component {
     fetch(CONFIG.proxyURL + helper.getWeatherURL(latitude, longitude), {
       headers: {
         'Access-Control-Allow-Origin': CONFIG.API.weather.yandex.url,
-        'X-Yandex-API-Key': CONFIG.API.weather.yandex.key,
+        'X-Yandex-API-Key': process.env.REACT_APP_WEATHER_YANDEX,
       },
     })
       .then(res => res.json())
@@ -192,7 +192,7 @@ class App extends React.Component {
                   />
                   <Weather
                     DATA={fullData}
-                    mapApi={CONFIG.API.maps.yandex}
+                    mapToken={process.env.REACT_APP_MAPS_YANDEX}
                     LOCATION={location}
                     degreeType={degreeType}
                     degreeTypes={CONFIG.degreeTypes}

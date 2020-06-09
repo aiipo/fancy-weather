@@ -9,7 +9,7 @@ import MapContainer from '../map/map';
 
 function Weather({
   DATA,
-  mapApi,
+  mapToken,
   degreeType,
   degreeTypes,
   LOCATION,
@@ -90,7 +90,7 @@ function Weather({
         <div className="map__container">
           <MapContainer
             options={getMapOptions()}
-            apiKey={mapApi.key}
+            apiKey={mapToken}
           />
         </div>
         <div className="map__coordinates">
@@ -103,7 +103,7 @@ function Weather({
 }
 
 Weather.propTypes = {
-  degreeTypes: PropTypes.objectOf(PropTypes.string).isRequired,
+  degreeTypes: PropTypes.string.isRequired,
 };
 
 

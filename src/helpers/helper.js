@@ -20,7 +20,7 @@ function getImageURL(options) {
 }
 
 function getLocationURL(geocode) {
-  return `${CONFIG.API.geocoding.yandex.url}format=json&results=1&apikey=${CONFIG.API.geocoding.yandex.key}&geocode=${geocode}`;
+  return `${CONFIG.API.geocoding.yandex.url}format=json&results=1&apikey=${process.env.REACT_APP_GEOCODING_YANDEX}&geocode=${geocode}`;
 }
 
 function getLocationByIp() {

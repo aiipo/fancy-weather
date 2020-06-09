@@ -5,25 +5,21 @@ const CONFIG = {
     geocoding: {
       yandex: {
         url: 'https://geocode-maps.yandex.ru/1.x/?',
-        key: '',
       },
     },
     weather: {
       yandex: {
         url: 'https://api.weather.yandex.ru/v1/forecast?',
-        key: '',
       },
     },
     maps: {
       yandex: {
         url: 'https://maps.googleapis.com/maps/api/js?',
-        key: '',
       },
     },
     images: {
       unsplash: {
         url: 'https://api.unsplash.com/photos/random?',
-        key: '',
       },
     },
   },
