@@ -3,4 +3,14 @@
   width: 400px;
   display: flex;
   flex: 1 0 400px;
+  clip-path: circle(345px at center);
+  -webkit-mask-image: -webkit-gradient(
+                  linear, left top, right bottom,
+                  color-stop(0.00,  rgba(0,0,0,1)),
+                  color-stop(0.35,  rgba(0,0,0,1)),
+                  color-stop(1.00,  rgba(0,0,0,0)));
+
+  &:hover {
+    -webkit-mask-image: none;
+  }
 }
