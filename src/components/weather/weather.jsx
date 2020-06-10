@@ -14,6 +14,7 @@ function Weather({
   degreeTypes,
   LOCATION,
   isForecastLoaded,
+  updateWeather,
 }) {
   const {
     city,
@@ -84,7 +85,10 @@ function Weather({
             </div>
           </div>
         </div>
-        <div className="details__updated-date">Updated: {helperTime.getUpdatedTime(updatedTime)}</div>
+        <div className="details__updated-date">
+          <span>Updated: {helperTime.getUpdatedTime(updatedTime)}</span>
+          <span role="presentation" className="update__icon" onClick={updateWeather} />
+        </div>
       </div>
       <div className="weather__map map">
         <div className="map__container">
@@ -104,6 +108,7 @@ function Weather({
 
 Weather.propTypes = {
   degreeTypes: PropTypes.objectOf(PropTypes.string).isRequired,
+  updateWeather: PropTypes.func.isRequired,
 };
 
 

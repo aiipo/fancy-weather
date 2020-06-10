@@ -38,6 +38,14 @@
     &__updated-date {
       color: darken(white, 15%);
       font-size: 2.5vmin;
+
+      .update__icon {
+        margin-left: 5px;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
     }
   }
 

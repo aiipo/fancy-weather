@@ -144,6 +144,11 @@ class App extends React.Component {
 
   updateWeather = () => {
     const { location: { latitude, longitude } } = this.state;
+
+    this.setState({
+      isForecastLoaded: false,
+    });
+
     fetch(CONFIG.proxyURL + helper.getWeatherURL(latitude, longitude), {
       headers: {
         'Access-Control-Allow-Origin': CONFIG.API.weather.yandex.url,
@@ -211,6 +216,7 @@ class App extends React.Component {
                       degreeType={degreeType}
                       degreeTypes={CONFIG.degreeTypes}
                       isForecastLoaded={isForecastLoaded}
+                      updateWeather={this.updateWeather}
                     />
                   </>
                 )
