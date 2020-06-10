@@ -1,10 +1,22 @@
-import React, { createRef } from 'react';
+import React, { createRef, useEffect } from 'react';
 import PropTypes, { string } from 'prop-types';
+import CONFIG from '../config';
 import './degreeToggle.scss';
 
 function DegreeToggle({ updateForecastDegree, degreeTypes }) {
   const celsius = createRef();
   const fahrenheit = createRef();
+
+  useEffect(() => {
+    const checked = localStorage.getItem(CONFIG.localStorage.degreeType);
+    if (checked) {
+      if (checked === celsius.current.value) {
+        celsius.current.classList.add('checked');
+      } else {
+        fahrenheit.current.classList.add('checked');
+      }
+    }
+  }, []);
 
   function handleChange(e) {
     updateForecastDegree(e);
@@ -20,13 +32,13 @@ function DegreeToggle({ updateForecastDegree, degreeTypes }) {
   return (
     <div className="degree-toggle">
       <div className="form-check form-check-inline">
-        <label className="form-check-label checked" htmlFor="celsius" ref={celsius}>
+        <label className="form-check-label" htmlFor="celsius" ref={celsius}>
           <input
             className="form-check-input"
             type="radio"
             name="degree-type"
             id="celsius"
-            value="celsius"
+            value={degreeTypes.celsius}
             onChange={handleChange}
           />
           °C
@@ -39,7 +51,7 @@ function DegreeToggle({ updateForecastDegree, degreeTypes }) {
             type="radio"
             name="degree-type"
             id="fahrenheit"
-            value="fahrenheit"
+            value={degreeTypes.fahrenheit}
             onChange={handleChange}
           />
           °F
