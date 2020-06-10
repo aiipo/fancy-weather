@@ -8,6 +8,11 @@
 
     & > * {
       margin-right: 2px;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.02);
+      }
     }
   }
 }

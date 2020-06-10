@@ -34,6 +34,12 @@
       align-items: center;
       height: 100%;
       width: 100%;
+      cursor: pointer;
+
+      &:hover {
+        -webkit-transform: scale(1.2);
+        transform: scale(1.1);
+      }
     }
   }
 }
