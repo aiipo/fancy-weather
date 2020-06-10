@@ -1,0 +1,25 @@
+.notification {
+  padding: 20px;
+  position: relative;
+  background: #97bfe0e0;
+  border-radius: 5px;
+  z-index: 10;
+
+  &:hover {
+    background: #97bfe0;
+  }
+
+  &__close {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    cursor: pointer;
+
+    &::before {
+      content: 'x';
+      padding: 2px 3px;
+      color: #ffffff;
+      font-weight: 300;
+    }
+  }
+}

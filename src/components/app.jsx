@@ -1,5 +1,7 @@
 import React from 'react';
 
+import ErrorBoundary from './errorBoundary/errorBoundary';
+import NotificationContainer from './notificationContainer/notificationContainer';
 import Control from './control/control';
 import Weather from './weather/weather';
 import Loader from './loader/loader';
@@ -169,6 +171,8 @@ class App extends React.Component {
   render() {
     const {
       degreeType,
+      isError,
+      errors,
       isInitForecast,
       isForecastLoaded,
       isBackgroundLoaded,
@@ -178,34 +182,45 @@ class App extends React.Component {
 
     return (
       <div className="app" ref={this.appRef}>
-        <div className="app__container">
+        <ErrorBoundary>
           {
-            (isForecastLoaded || isInitForecast)
-              && (
-                <>
-                  <Control
-                    CONFIG={CONFIG}
-                    updateForecastDegree={this.updateForecastDegree}
-                    updateBackground={this.updateBackgroundImage}
-                    searchCity={this.searchCity}
-                    degreeType={degreeType}
-                  />
-                  <Weather
-                    DATA={fullData}
-                    mapToken={process.env.REACT_APP_MAPS_YANDEX}
-                    LOCATION={location}
-                    degreeType={degreeType}
-                    degreeTypes={CONFIG.degreeTypes}
-                    isForecastLoaded={isForecastLoaded}
-                  />
-                </>
-              )
+            isError
+            && (
+              <NotificationContainer
+                notifications={errors.map(error => CONFIG.errorCodes[error.code])}
+                seconds={7}
+              />
+            )
           }
-          {
-            (!isBackgroundLoaded && <Loader />)
-            || (!isForecastLoaded && <Loader />)
-          }
-        </div>
+          <div className="app__container">
+            {
+              (isForecastLoaded || isInitForecast)
+                && (
+                  <>
+                    <Control
+                      CONFIG={CONFIG}
+                      updateForecastDegree={this.updateForecastDegree}
+                      updateBackground={this.updateBackgroundImage}
+                      searchCity={this.searchCity}
+                      degreeType={degreeType}
+                    />
+                    <Weather
+                      DATA={fullData}
+                      mapToken={process.env.REACT_APP_MAPS_YANDEX}
+                      LOCATION={location}
+                      degreeType={degreeType}
+                      degreeTypes={CONFIG.degreeTypes}
+                      isForecastLoaded={isForecastLoaded}
+                    />
+                  </>
+                )
+            }
+            {
+              (!isBackgroundLoaded && <Loader />)
+                || (!isForecastLoaded && <Loader />)
+            }
+          </div>
+        </ErrorBoundary>
       </div>
     );
   }

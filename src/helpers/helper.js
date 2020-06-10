@@ -58,8 +58,8 @@ function findLocation(location) {
       };
     })
     .catch(() => ({
-      code: 1,
-      text: location,
+      code: 2,
+      text: null,
     }));
 }
 
@@ -78,23 +78,23 @@ function getLocation(location) {
       },
     } = location;
     if (pos) {
-      const position = pos.split(' ');
+      const [longitude, latitude] = pos.split(' ');
       return {
         ok: true,
         data: {
-          latitude: position[1],
-          longitude: position[0],
+          latitude,
+          longitude,
           country_name: Components[0].name,
           city: Components[Components.length - 1].name,
         },
       };
     }
   } catch (e) {
+    return {
+      code: 3,
+      text: e,
+    };
   }
-  return {
-    code: 1,
-    text: location,
-  };
 }
 
 export {

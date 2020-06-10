@@ -42,7 +42,9 @@ const CONFIG = {
   },
 
   errorCodes: {
-    1: 'location is not find',
+    1: 'Location is not find',
+    2: 'Connect to the internet',
+    3: 'Something went wrong',
   },
 };
 

@@ -103,7 +103,7 @@ function Weather({
 }
 
 Weather.propTypes = {
-  degreeTypes: PropTypes.string.isRequired,
+  degreeTypes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 
