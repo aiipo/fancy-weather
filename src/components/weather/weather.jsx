@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Today from '../today/today';
@@ -22,14 +22,43 @@ function Weather({
     latitude,
     longitude,
   } = LOCATION;
-  const { now_dt, fact, forecasts } = DATA;
+  const {
+    now_dt,
+    fact,
+    forecasts,
+    info: {
+      tzinfo: {
+        name: timeZone,
+      },
+    },
+  } = DATA;
   const updatedTime = new Date(Date.parse(now_dt));
-  const [curTime, setCurTime] = useState(new Date());
   const [curLocation, setCurLocation] = useState();
 
-  useEffect(() => {
-    setInterval(() => setCurTime(new Date()), 1000);
-  }, []);
+  const dateLocal = new Date().toLocaleString('en-US', { timeZone });
+  const [curTime, setCurTime] = useState(new Date(dateLocal));
+
+  function useInterval(callback, delay) {
+    const savedCallback = useRef();
+
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
+
+    useEffect(() => {
+      function tick() {
+        savedCallback.current();
+      }
+      if (delay !== null) {
+        const id = setInterval(tick, delay);
+        return () => clearInterval(id);
+      }
+    }, [delay]);
+  }
+
+  const setCurrentTime = () => setCurTime(new Date(dateLocal));
+
+  useInterval(setCurrentTime, 1000);
 
   function getCurrentLocation(country, place) {
     return country !== place ? `${place}, ${country}` : country;
