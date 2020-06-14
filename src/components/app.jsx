@@ -102,7 +102,7 @@ class App extends React.Component {
 
   searchCity = event => {
     event.preventDefault();
-    const search = event.target.getElementsByClassName('search-input')[0];
+    const search = event.target.getElementsByClassName('search__input')[0];
     if (search && search.value) {
       this.updateLocation(search.value);
     }
