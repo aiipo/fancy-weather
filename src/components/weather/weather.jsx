@@ -103,6 +103,20 @@ function Weather({
     };
   }
 
+  function getMinutesDMS(coordinate) {
+    return Math.trunc((Math.abs(coordinate) - Math.floor(coordinate)) * 60);
+  }
+
+  function renderLatitude() {
+    const degrees = Math.trunc(latitude);
+    return `${getTranslate(translationKeys.latitude, language)}: ${degrees}°${getMinutesDMS(latitude)}'`;
+  }
+
+  function renderLongitude() {
+    const degrees = Math.trunc(longitude);
+    return `${getTranslate(translationKeys.longitude, language)}: ${degrees}°${getMinutesDMS(longitude)}'`;
+  }
+
   return (
     <div className="weather">
       <div className="weather__details details">
@@ -136,10 +150,10 @@ function Weather({
         </div>
         <div className="map__coordinates">
           <div className="coordinates__latitude">
-            {`${getTranslate(translationKeys.latitude, language)}: ${latitude}`}
+            {renderLatitude()}
           </div>
           <div className="coordinates__longitude">
-            {`${getTranslate(translationKeys.longitude, language)}: ${longitude}`}
+            {renderLongitude()}
           </div>
         </div>
       </div>
