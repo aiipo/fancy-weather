@@ -183,7 +183,7 @@ class App extends React.Component {
       this.setState(state => ({
         prevLang: state.lang,
         lang,
-      }));
+      }), () => localStorage.setItem(CONFIG.localStorage.lang, lang));
     }
   }
 

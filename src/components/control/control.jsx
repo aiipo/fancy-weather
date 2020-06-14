@@ -29,7 +29,7 @@ function Control({
     <div className="control-buttons">
       <div className="control-buttons__settings">
         <UpdateButton update={updateBackground} />
-        <DropdownList items={languages} callback={handleChangeLanguage} />
+        <DropdownList items={languages} callback={handleChangeLanguage} defaultValue={language} />
         <DegreeToggle
           degreeType={degreeType}
           updateForecastDegree={updateForecastDegree}
