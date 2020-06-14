@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './today.scss';
+import { getTranslate, translationKeys, weatherConditions } from '../translation';
 
-function Today({ DATA, convertTemperature }) {
+function Today({ DATA, convertTemperature, language }) {
   const {
     temp,
     condition,
@@ -29,16 +30,17 @@ function Today({ DATA, convertTemperature }) {
         </div>
         <div className="details__forecast forecast">
           <div className="forecast__condition">
-            {condition}
+            {weatherConditions[condition][language]}
           </div>
           <div className="forecast__feels-like">
-            {`FEELS LIKE: ${convertTemperature(feelsLike)}°`}
+            {`${getTranslate(translationKeys.feelsLike, language)}: ${convertTemperature(feelsLike)}°`}
           </div>
           <div className="forecast__wind wind">
-            {`WIND: ${windGust} `}<span className="wind__gust">m/s</span>
+            {`${getTranslate(translationKeys.wind, language)}: ${windGust} `}
+            <span className="wind__gust">{getTranslate(translationKeys.metrePerSecond, language)}</span>
           </div>
           <div className="details__humidity">
-            {`HUMIDITY: ${humidity}`}
+            {`${getTranslate(translationKeys.humidity, language)}: ${humidity}`}
           </div>
         </div>
       </div>
@@ -48,6 +50,7 @@ function Today({ DATA, convertTemperature }) {
 
 Today.propTypes = {
   convertTemperature: PropTypes.func.isRequired,
+  language: PropTypes.string.isRequired,
 };
 
 export default Today;

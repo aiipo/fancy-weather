@@ -22,12 +22,11 @@ const CONFIG = {
         url: 'https://api.unsplash.com/photos/random?',
       },
     },
-  },
-
-  languages: {
-    ru: 'Russian',
-    en: 'English',
-    be: 'Belarusian',
+    translate: {
+      yandex: {
+        url: 'https://translate.yandex.net/api/v1.5/tr.json/translate',
+      },
+    },
   },
 
   degreeTypes: {
@@ -45,6 +44,7 @@ const CONFIG = {
     1: 'Location is not find',
     2: 'Connect to the internet',
     3: 'Something went wrong',
+    4: 'Translation is not possible',
   },
 };
 

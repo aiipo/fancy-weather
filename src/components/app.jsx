@@ -5,10 +5,13 @@ import NotificationContainer from './notificationContainer/notificationContainer
 import Control from './control/control';
 import Weather from './weather/weather';
 import Loader from './loader/loader';
+
+import { languages } from './translation';
 import CONFIG from './config';
 import * as helper from '../helpers/helper';
 import * as helperInit from '../helpers/helperInit';
 import * as helperTime from '../helpers/helperTime';
+
 import './app.scss';
 
 class App extends React.Component {
@@ -16,8 +19,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       degreeType: helperInit.initDegreeType(),
+      prevLang: helperInit.initLanguage(),
       lang: helperInit.initLanguage(),
       location: {},
+      isSentenceTranslated: true,
       isInitForecast: false,
       isForecastLoaded: false,
       isBackgroundLoaded: false,
@@ -173,16 +178,52 @@ class App extends React.Component {
       );
   }
 
+  changeLanguage = lang => {
+    if (languages[lang]) {
+      this.setState(state => ({
+        prevLang: state.lang,
+        lang,
+      }));
+    }
+  }
+
+  translateSentence = async (sentence) => {
+    const { prevLang, lang } = this.state;
+    if (sentence && prevLang !== lang) {
+      this.setState({
+        isSentenceTranslated: false,
+      });
+      const query = `?key=${process.env.REACT_APP_TRANSLATE_YANDEX}&text=${sentence}&lang=${prevLang}-${lang}`;
+      const response = await fetch(CONFIG.API.translate.yandex.url + query);
+      const result = await response.json();
+
+      this.setState({
+        isSentenceTranslated: true,
+      });
+
+      if (result.code === 200) {
+        return result.text;
+      }
+      this.setErrors({
+        code: 4,
+        text: result.message,
+      });
+    }
+    return sentence;
+  }
+
   render() {
     const {
       degreeType,
       isError,
       errors,
+      isSentenceTranslated,
       isInitForecast,
       isForecastLoaded,
       isBackgroundLoaded,
       fullData,
       location,
+      lang,
     } = this.state;
 
     return (
@@ -208,6 +249,8 @@ class App extends React.Component {
                       updateBackground={this.updateBackgroundImage}
                       searchCity={this.searchCity}
                       degreeType={degreeType}
+                      changeLanguage={this.changeLanguage}
+                      language={lang}
                     />
                     <Weather
                       DATA={fullData}
@@ -217,13 +260,16 @@ class App extends React.Component {
                       degreeTypes={CONFIG.degreeTypes}
                       isForecastLoaded={isForecastLoaded}
                       updateWeather={this.updateWeather}
+                      language={lang}
+                      translateSentence={this.translateSentence}
                     />
                   </>
                 )
             }
             {
-              (!isBackgroundLoaded && <Loader />)
-                || (!isForecastLoaded && <Loader />)
+              ((!isBackgroundLoaded
+                || !isForecastLoaded
+                || !isSentenceTranslated) && <Loader />)
             }
           </div>
         </ErrorBoundary>

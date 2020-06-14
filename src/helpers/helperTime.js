@@ -1,41 +1,41 @@
-import DATE from './calendar';
+import { DATE } from '../components/translation';
 
 function isTypeOfDate(date) {
   return date instanceof Date && date.constructor === Date;
 }
 
-function getDayOfWeekShort(dayOfWeek) {
-  return DATE.dayOfWeek[dayOfWeek] ? DATE.dayOfWeek[dayOfWeek].short : null;
+function getDayOfWeekShort(dayOfWeek, language) {
+  return DATE.dayOfWeek[dayOfWeek] ? DATE.dayOfWeek[dayOfWeek].short[language] : null;
 }
 
-function getDayOfWeekFull(dayOfWeek) {
-  return DATE.dayOfWeek[dayOfWeek] ? DATE.dayOfWeek[dayOfWeek].full : null;
+function getDayOfWeekFull(dayOfWeek, language) {
+  return DATE.dayOfWeek[dayOfWeek] ? DATE.dayOfWeek[dayOfWeek].full[language] : null;
 }
 
-function getMonth(month) {
-  return DATE.month[month];
+function getMonth(month, language) {
+  return DATE.month[language][month];
 }
 
-function getTime(time) {
+function getTime(time, language) {
   if (isTypeOfDate(time)) {
     const minutes = time.getMinutes();
-    return `${getDayOfWeekShort(time.getDay())} ${time.getDate()} ${getMonth(time.getMonth())}
+    return `${getDayOfWeekShort(time.getDay(), language)} ${time.getDate()} ${getMonth(time.getMonth(), language)}
      ${time.getHours()}:${minutes > 9 ? minutes : `0${minutes}`}`;
   }
   return null;
 }
 
-function getUpdatedTime(time) {
+function getUpdatedTime(time, language) {
   if (isTypeOfDate(time)) {
-    return `${getTime(time)}`;
+    return `${getTime(time, language)}`;
   }
   return null;
 }
 
-function getCurrentTime(time) {
+function getCurrentTime(time, language) {
   if (isTypeOfDate(time)) {
     const seconds = time.getSeconds();
-    return `${getTime(time)}:${seconds > 9 ? seconds : `0${seconds}`}`;
+    return `${getTime(time, language)}:${seconds > 9 ? seconds : `0${seconds}`}`;
   }
   return null;
 }
@@ -106,5 +106,5 @@ export {
   getUpdatedTime,
   getCurrentTime,
   getSeason,
-  getTimeOfDay
+  getTimeOfDay,
 };

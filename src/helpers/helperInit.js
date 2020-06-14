@@ -1,4 +1,5 @@
 import CONFIG from '../components/config';
+import { languages } from '../components/translation';
 
 function initDegreeType() {
   const localType = localStorage.getItem(CONFIG.localStorage.degreeType);
@@ -9,9 +10,9 @@ function initDegreeType() {
 
 function initLanguage() {
   const localLang = localStorage.getItem(CONFIG.localStorage.lang);
-  return localLang && CONFIG.languages[localLang]
+  return localLang && languages[localLang]
     ? localLang
-    : CONFIG.languages.en;
+    : languages.en;
 }
 
 export {

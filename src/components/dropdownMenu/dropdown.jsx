@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes, { string } from 'prop-types';
 import './dropdownMenu.scss';
 
-function DropdownList({ items }) {
+function DropdownList({ items, callback }) {
   function renderItems() {
-    return Object.values(items).map(item => (
+    return Object.entries(items).map(([key, item]) => (
       <option
-        key={item}
+        key={key}
         className="dropdown-list__item"
-        value={item}
+        value={key}
       >
         {item}
       </option>
@@ -16,7 +16,7 @@ function DropdownList({ items }) {
   }
 
   return (
-    <select className="dropdown-list">
+    <select className="dropdown-list" onClick={callback}>
       {renderItems()}
     </select>
   );
@@ -24,6 +24,11 @@ function DropdownList({ items }) {
 
 DropdownList.propTypes = {
   items: PropTypes.objectOf(string).isRequired,
+  callback: PropTypes.func,
+};
+
+DropdownList.defaultProps = {
+  callback: () => {},
 };
 
 export default DropdownList;

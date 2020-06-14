@@ -6,6 +6,7 @@ import FollowingDay from '../followingDay/followingDay';
 import * as helperTime from '../../helpers/helperTime';
 import './weather.scss';
 import MapContainer from '../map/map';
+import { getTranslate, translationKeys } from '../translation';
 
 function Weather({
   DATA,
@@ -15,6 +16,8 @@ function Weather({
   LOCATION,
   isForecastLoaded,
   updateWeather,
+  language,
+  translateSentence,
 }) {
   const {
     city,
@@ -65,10 +68,12 @@ function Weather({
   }
 
   useEffect(() => {
-    if (isForecastLoaded) {
-      setCurLocation(getCurrentLocation(countryName, city));
-    }
-  }, [isForecastLoaded, countryName, city]);
+    const translate = async () => {
+      const location = await translateSentence(getCurrentLocation(countryName, city));
+      setCurLocation(location);
+    };
+    translate();
+  }, [language, LOCATION]);
 
   function convertTemperature(degree) {
     const result = degreeType !== degreeTypes.fahrenheit ? degree : (degree * 9) / 5 + 32;
@@ -84,6 +89,7 @@ function Weather({
           key={forecasts[i].date_ts}
           DATA={forecasts[i]}
           convertTemperature={convertTemperature}
+          language={language}
         />
       );
     }
@@ -104,18 +110,20 @@ function Weather({
           <div className="weather__city">
             {curLocation}
           </div>
-          <div className="weather__current-date">{helperTime.getCurrentTime(curTime)}</div>
+          <div className="weather__current-date">{helperTime.getCurrentTime(curTime, language)}</div>
         </div>
         <div className="details__forecast forecast">
           <div className="forecast__data days">
-            <Today DATA={fact} convertTemperature={convertTemperature} />
+            <Today DATA={fact} convertTemperature={convertTemperature} language={language} />
             <div className="days__following">
               {renderFollowingDays()}
             </div>
           </div>
         </div>
         <div className="details__updated-date">
-          <span>Updated: {helperTime.getUpdatedTime(updatedTime)}</span>
+          <span>
+            {`${getTranslate(translationKeys.updated, language)}: ${helperTime.getUpdatedTime(updatedTime, language)}`}
+          </span>
           <span role="presentation" className="update__icon" onClick={updateWeather} />
         </div>
       </div>
@@ -127,8 +135,12 @@ function Weather({
           />
         </div>
         <div className="map__coordinates">
-          <div className="coordinates__latitude">{`latitude: ${latitude}`}</div>
-          <div className="coordinates__longitude">{`longitude: ${longitude}`}</div>
+          <div className="coordinates__latitude">
+            {`${getTranslate(translationKeys.latitude, language)}: ${latitude}`}
+          </div>
+          <div className="coordinates__longitude">
+            {`${getTranslate(translationKeys.longitude, language)}: ${longitude}`}
+          </div>
         </div>
       </div>
     </div>
@@ -138,6 +150,8 @@ function Weather({
 Weather.propTypes = {
   degreeTypes: PropTypes.objectOf(PropTypes.string).isRequired,
   updateWeather: PropTypes.func.isRequired,
+  translateSentence: PropTypes.func.isRequired,
+  language: PropTypes.string.isRequired,
 };
 
 

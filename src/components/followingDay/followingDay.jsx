@@ -4,7 +4,7 @@ import { getWeatherIconURL } from '../../helpers/helper';
 import { getDayOfWeekFull } from '../../helpers/helperTime';
 import './followingDay.scss';
 
-function FollowingDay({ DATA, convertTemperature }) {
+function FollowingDay({ DATA, convertTemperature, language }) {
   const { day_short: dayShort, night_short: nightShort } = DATA.parts;
   const currentDate = new Date(DATA.date);
 
@@ -15,7 +15,7 @@ function FollowingDay({ DATA, convertTemperature }) {
   return (
     <div className="following-day">
       <div className="following-day__day-of-week">
-        <span className="degree">{getDayOfWeekFull(currentDate.getDay())}</span>
+        <span className="degree">{getDayOfWeekFull(currentDate.getDay(), language)}</span>
       </div>
       <div className="following-day__degree">
         {`${convertTemperature(getAverageTemperature())}°`}
