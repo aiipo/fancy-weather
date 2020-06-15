@@ -26,7 +26,14 @@ function getLocationURL(geocode) {
 function getLocationByIp() {
   return fetch('https://freegeoip.app/json/')
     .then(response => response.json())
-    .catch(err => console.error(err));
+    .then(location => ({
+      ok: true,
+      data: location,
+    }))
+    .catch(err => ({
+      code: 5,
+      text: err,
+    }));
 }
 
 function getInitialLocation() {

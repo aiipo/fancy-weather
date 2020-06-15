@@ -45,6 +45,7 @@ const CONFIG = {
     2: 'Connect to the internet',
     3: 'Something went wrong',
     4: 'Translation is not possible',
+    5: 'Could not detect your location',
   },
 };
 

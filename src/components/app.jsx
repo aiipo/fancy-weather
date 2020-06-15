@@ -31,6 +31,7 @@ class App extends React.Component {
       errors: [],
       fullData: {},
     };
+    this.defaultLocation = 'Izhevsk';
     this.appRef = React.createRef();
   }
 
@@ -52,9 +53,14 @@ class App extends React.Component {
   initLocation = () => {
     const getLocation = async () => {
       const location = await helper.getInitialLocation();
-      this.setState({
-        location,
-      });
+      if (location.ok) {
+        this.setState({
+          location: location.data,
+        });
+      } else {
+        this.setErrors(location);
+        this.updateLocation(this.defaultLocation);
+      }
     };
     getLocation();
   }
