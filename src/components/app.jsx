@@ -60,6 +60,7 @@ class App extends React.Component {
       } else {
         this.setErrors(location);
         this.updateLocation(this.defaultLocation);
+        setTimeout(() => this.updateWeather(), 50);
       }
     };
     getLocation();

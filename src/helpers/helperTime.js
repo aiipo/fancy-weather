@@ -13,7 +13,10 @@ function getDayOfWeekFull(dayOfWeek, language) {
 }
 
 function getMonth(month, language) {
-  return DATE.month[language][month];
+  const months = DATE.month[language];
+  if (months) {
+    return months[month];
+  }
 }
 
 function getTime(time, language) {

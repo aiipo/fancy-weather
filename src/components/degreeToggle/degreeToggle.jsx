@@ -9,12 +9,10 @@ function DegreeToggle({ updateForecastDegree, degreeTypes }) {
 
   useEffect(() => {
     const checked = localStorage.getItem(CONFIG.localStorage.degreeType);
-    if (checked) {
-      if (checked === celsius.current.value) {
-        celsius.current.classList.add('checked');
-      } else {
-        fahrenheit.current.classList.add('checked');
-      }
+    if (checked === fahrenheit.current.querySelector('input').value) {
+      fahrenheit.current.classList.add('checked');
+    } else {
+      celsius.current.classList.add('checked');
     }
   }, []);
 

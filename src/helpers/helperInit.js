@@ -12,7 +12,7 @@ function initLanguage() {
   const localLang = localStorage.getItem(CONFIG.localStorage.lang);
   return localLang && languages[localLang]
     ? localLang
-    : languages.en;
+    : Object.keys(languages)[0];
 }
 
 export {
