@@ -10,7 +10,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "react-yandex-maps": "^4.4.0"
+    "react-yandex-maps": "^4.4.0",
+    "react-test-renderer": "^16.13.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -44,7 +45,6 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^2.5.1",
-    "node-sass": "^4.14.1",
-    "react-test-renderer": "^16.13.1"
+    "node-sass": "^4.14.1"
   }
 }

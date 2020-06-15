@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DegreeToggle matches the snapshot 1`] = `
+<div
+  className="degree-toggle"
+>
+  <div
+    className="form-check form-check-inline"
+  >
+    <label
+      className="form-check-label"
+      htmlFor="celsius"
+    >
+      <input
+        className="form-check-input"
+        id="celsius"
+        name="degree-type"
+        onChange={[Function]}
+        type="radio"
+        value="celsius"
+      />
+      °C
+    </label>
+  </div>
+  <div
+    className="form-check form-check-inline"
+  >
+    <label
+      className="form-check-label"
+      htmlFor="fahrenheit"
+    >
+      <input
+        className="form-check-input"
+        id="fahrenheit"
+        name="degree-type"
+        onChange={[Function]}
+        type="radio"
+        value="fahrenheit"
+      />
+      °F
+    </label>
+  </div>
+</div>
+`;
