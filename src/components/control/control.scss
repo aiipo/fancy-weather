@@ -1,10 +1,13 @@
 .control-buttons {
   display: flex;
   justify-content: space-between;
-  height: 44px;
+  flex-wrap: wrap;
 
   .control-buttons__settings {
+    margin: 0 5px 10px 0;
+    height: 44px;
     display: flex;
+    flex: 2 1;
 
     & > * {
       margin-right: 2px;

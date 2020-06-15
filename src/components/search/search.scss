@@ -1,11 +1,15 @@
 .search {
   $scale: 1.03;
   display: flex;
+  flex: 1 1;
+  justify-content: flex-end;
   height: 100%;
+  width: 100%;
+  min-width: 300px;
 
   &__input {
     padding: 13px 15px;
-    width: 279px;
+    width: 100%;
     background: rgba(76, 82, 85, 0.4);
     border: 1px solid rgba(228, 227, 227, 0.2);
     color: white;
@@ -40,7 +44,7 @@
 
   &__clear {
     position: relative;
-    right: -286px;
+    left: -28px;
     width: 0;
     align-self: center;
     z-index: 1;

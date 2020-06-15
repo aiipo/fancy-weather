@@ -16,8 +16,8 @@ function Search({ search, searchPlaceholder, language }) {
 
   return (
     <form className="search__container search" onSubmit={search} data-testid="form">
-      <div className="search__clear" onClick={handleClick} />
       <input type="text" className="search__input" onFocus={handleFocus} placeholder={searchPlaceholder} ref={text} />
+      <div className="search__clear" onClick={handleClick} />
       <button type="submit" className="search__button">{getTranslate(translationKeys.search, language)}</button>
     </form>
   );
