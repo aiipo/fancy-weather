@@ -19,7 +19,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       degreeType: helperInit.initDegreeType(),
-      prevLang: helperInit.initLanguage(),
+      prevLang: Object.keys(languages)[0],
       lang: helperInit.initLanguage(),
       location: {},
       isSentenceTranslated: true,
@@ -187,7 +187,7 @@ class App extends React.Component {
     }
   }
 
-  translateSentence = async (sentence) => {
+  translateSentence = async sentence => {
     const { prevLang, lang } = this.state;
     if (sentence && prevLang !== lang) {
       this.setState({

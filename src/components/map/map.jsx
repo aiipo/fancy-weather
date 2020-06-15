@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import {
   YMaps,
   Map,
-  Placemark,
-  SearchControl
+  Placemark
 } from 'react-yandex-maps';
 import TYPES from './types';
 import './map.scss';
@@ -19,7 +18,6 @@ function MapContainer({ apiKey, options }) {
         <Placemark
           geometry={{ type: TYPES.Geometry.Point, coordinates: options.center }}
         />
-        <SearchControl />
       </Map>
     </YMaps>
   );
