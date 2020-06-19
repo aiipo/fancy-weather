@@ -1,15 +1,15 @@
-import CONFIG from '../components/config';
+import Core from '../components/core';
 import { languages } from '../components/translation';
 
 function initDegreeType() {
-  const localType = localStorage.getItem(CONFIG.localStorage.degreeType);
-  return localType && CONFIG.degreeTypes[localType]
+  const localType = localStorage.getItem(Core.localStorage.degreeType);
+  return localType && Core.degreeTypes[localType]
     ? localType
-    : CONFIG.degreeTypes.celsius;
+    : Core.degreeTypes.celsius;
 }
 
 function initLanguage() {
-  const localLang = localStorage.getItem(CONFIG.localStorage.lang);
+  const localLang = localStorage.getItem(Core.localStorage.lang);
   return localLang && languages[localLang]
     ? localLang
     : Object.keys(languages)[0];

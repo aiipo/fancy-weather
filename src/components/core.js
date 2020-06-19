@@ -1,4 +1,4 @@
-const CONFIG = {
+const Core = {
   proxyURL: 'https://blooming-temple-88289.herokuapp.com/',
 
   API: {
@@ -47,6 +47,10 @@ const CONFIG = {
     4: 'Translation is not possible',
     5: 'Could not detect your location',
   },
+
+  httpStatusCode: {
+    ok: 200,
+  },
 };
 
-export default CONFIG;
+export default Core;

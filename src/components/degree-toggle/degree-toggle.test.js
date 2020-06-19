@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import TestRenderer from 'react-test-renderer';
-import DegreeToggle from './degreeToggle';
+import DegreeToggle from './degree-toggle';
 
 describe('DegreeToggle', () => {
   let container;

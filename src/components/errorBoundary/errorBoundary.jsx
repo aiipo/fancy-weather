@@ -1,6 +1,6 @@
 import React from 'react';
 import Notification from '../notification/notification';
-import CONFIG from '../config';
+import Core from '../core';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class ErrorBoundary extends React.Component {
 
     if (errorInfo) {
       return (
-        <Notification message={CONFIG.errorCodes['3']} />
+        <Notification message={Core.errorCodes['3']} />
       );
     }
 

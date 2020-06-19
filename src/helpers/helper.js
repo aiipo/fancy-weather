@@ -1,7 +1,7 @@
-import CONFIG from '../components/config';
+import Core from '../components/core';
 
 function getWeatherURL(latitude = 56.852676, longitude = 53.206891) {
-  return `${CONFIG.API.weather.yandex.url}lat=${latitude}&lon=${longitude}&limit=4&hours=false`;
+  return `${Core.API.weather.yandex.url}lat=${latitude}&lon=${longitude}&limit=4&hours=false`;
 }
 
 function getWeatherIconURL(icon) {
@@ -10,7 +10,7 @@ function getWeatherIconURL(icon) {
 
 function getImageURL(options) {
   const query = Object.values(options.query).join('+');
-  const result = `${CONFIG.API.images.unsplash.url}
+  const result = `${Core.API.images.unsplash.url}
       orientation=${options.orientation ? options.orientation : 'landscape'}
       &page=${options.page}
       &query=${query}
@@ -20,7 +20,7 @@ function getImageURL(options) {
 }
 
 function getLocationURL(geocode) {
-  return `${CONFIG.API.geocoding.yandex.url}format=json&results=1&apikey=${process.env.REACT_APP_GEOCODING_YANDEX}&geocode=${geocode}`;
+  return `${Core.API.geocoding.yandex.url}format=json&results=1&apikey=${process.env.REACT_APP_GEOCODING_YANDEX}&geocode=${geocode}`;
 }
 
 function getLocationByIp() {

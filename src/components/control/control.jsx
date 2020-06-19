@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Search from '../search/search';
-import DegreeToggle from '../degreeToggle/degreeToggle';
+import DegreeToggle from '../degree-toggle/degree-toggle';
 import UpdateButton from '../updateButton/updateButton';
 import DropdownList from '../dropdownMenu/dropdown';
 import { getTranslate, languages, translationKeys } from '../translation';
 import './control.scss';
 
 function Control({
-  CONFIG,
+  core,
   searchCity,
   updateBackground,
   updateForecastDegree,
@@ -33,7 +33,7 @@ function Control({
         <DegreeToggle
           degreeType={degreeType}
           updateForecastDegree={updateForecastDegree}
-          degreeTypes={CONFIG.degreeTypes}
+          degreeTypes={core.degreeTypes}
         />
       </div>
       <Search
@@ -52,7 +52,7 @@ Control.propTypes = {
   changeLanguage: PropTypes.func.isRequired,
   language: PropTypes.string.isRequired,
   degreeType: PropTypes.string.isRequired,
-  CONFIG: PropTypes.object.isRequired,
+  core: PropTypes.object.isRequired,
 };
 
 export default Control;

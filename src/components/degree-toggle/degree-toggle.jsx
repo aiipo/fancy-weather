@@ -1,14 +1,14 @@
 import React, { createRef, useEffect } from 'react';
 import PropTypes, { string } from 'prop-types';
-import CONFIG from '../config';
-import './degreeToggle.scss';
+import Core from '../core';
+import './degree-toggle.scss';
 
 function DegreeToggle({ updateForecastDegree, degreeTypes }) {
   const celsius = createRef();
   const fahrenheit = createRef();
 
   useEffect(() => {
-    const checked = localStorage.getItem(CONFIG.localStorage.degreeType);
+    const checked = localStorage.getItem(Core.localStorage.degreeType);
     if (checked === fahrenheit.current.querySelector('input').value) {
       fahrenheit.current.classList.add('checked');
     } else {

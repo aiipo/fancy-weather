@@ -28,15 +28,5 @@ describe('convert temperature', () => {
       const result = convertTemperatureTest(3, degreeTypes.fahrenheit);
       expect(result).toBe(37);
     });
-
-    it('0°C in °F', () => {
-      const result = convertTemperatureTest(0, degreeTypes.fahrenheit);
-      expect(result).toBe(32);
-    });
-
-    it('-30°C in °F', () => {
-      const result = convertTemperatureTest(-30, degreeTypes.fahrenheit);
-      expect(result).toBe(-22);
-    });
   });
 });

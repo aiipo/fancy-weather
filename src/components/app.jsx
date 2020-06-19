@@ -7,7 +7,7 @@ import Weather from './weather/weather';
 import Loader from './loader/loader';
 
 import { languages } from './translation';
-import CONFIG from './config';
+import Core from './core';
 import * as helper from '../helpers/helper';
 import * as helperInit from '../helpers/helperInit';
 import * as helperTime from '../helpers/helperTime';
@@ -118,7 +118,7 @@ class App extends React.Component {
   updateForecastDegree = event => {
     this.setState({
       degreeType: event.target.value,
-    }, () => localStorage.setItem(CONFIG.localStorage.degreeType, this.state.degreeType));
+    }, () => localStorage.setItem(Core.localStorage.degreeType, this.state.degreeType));
   }
 
   getImageURL = () => {
@@ -161,9 +161,9 @@ class App extends React.Component {
       isForecastLoaded: false,
     });
 
-    fetch(CONFIG.proxyURL + helper.getWeatherURL(latitude, longitude), {
+    fetch(Core.proxyURL + helper.getWeatherURL(latitude, longitude), {
       headers: {
-        'Access-Control-Allow-Origin': CONFIG.API.weather.yandex.url,
+        'Access-Control-Allow-Origin': Core.API.weather.yandex.url,
         'X-Yandex-API-Key': process.env.REACT_APP_WEATHER_YANDEX,
       },
     })
@@ -190,7 +190,7 @@ class App extends React.Component {
       this.setState(state => ({
         prevLang: state.lang,
         lang,
-      }), () => localStorage.setItem(CONFIG.localStorage.lang, lang));
+      }), () => localStorage.setItem(Core.localStorage.lang, lang));
     }
   }
 
@@ -201,14 +201,14 @@ class App extends React.Component {
         isSentenceTranslated: false,
       });
       const query = `?key=${process.env.REACT_APP_TRANSLATE_YANDEX}&text=${sentence}&lang=${prevLang}-${lang}`;
-      const response = await fetch(CONFIG.API.translate.yandex.url + query);
+      const response = await fetch(Core.API.translate.yandex.url + query);
       const result = await response.json();
 
       this.setState({
         isSentenceTranslated: true,
       });
 
-      if (result.code === 200) {
+      if (result.code === Core.httpStatusCode.ok) {
         return result.text;
       }
       this.setErrors({
@@ -240,7 +240,7 @@ class App extends React.Component {
             isError
             && (
               <NotificationContainer
-                notifications={errors.map(error => CONFIG.errorCodes[error.code])}
+                notifications={errors.map(error => Core.errorCodes[error.code])}
                 seconds={7}
               />
             )
@@ -251,7 +251,7 @@ class App extends React.Component {
                 && (
                   <>
                     <Control
-                      CONFIG={CONFIG}
+                      core={Core}
                       updateForecastDegree={this.updateForecastDegree}
                       updateBackground={this.updateBackgroundImage}
                       searchCity={this.searchCity}
@@ -260,11 +260,11 @@ class App extends React.Component {
                       language={lang}
                     />
                     <Weather
-                      DATA={fullData}
+                      data={fullData}
                       mapToken={process.env.REACT_APP_MAPS_YANDEX}
-                      LOCATION={location}
+                      location={location}
                       degreeType={degreeType}
-                      degreeTypes={CONFIG.degreeTypes}
+                      degreeTypes={Core.degreeTypes}
                       isForecastLoaded={isForecastLoaded}
                       updateWeather={this.updateWeather}
                       language={lang}

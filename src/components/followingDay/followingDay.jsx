@@ -4,9 +4,9 @@ import { getWeatherIconURL } from '../../helpers/helper';
 import { getDayOfWeekFull } from '../../helpers/helperTime';
 import './followingDay.scss';
 
-function FollowingDay({ DATA, convertTemperature, language }) {
-  const { day_short: dayShort, night_short: nightShort } = DATA.parts;
-  const currentDate = new Date(DATA.date);
+function FollowingDay({ data, convertTemperature, language }) {
+  const { day_short: dayShort, night_short: nightShort } = data.parts;
+  const currentDate = new Date(data.date);
 
   function getAverageTemperature() {
     return Math.round((dayShort.temp + nightShort.temp) / 2);

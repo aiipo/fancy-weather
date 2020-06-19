@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './today.scss';
 import { getTranslate, translationKeys, weatherConditions } from '../translation';
 
-function Today({ DATA, convertTemperature, language }) {
+function Today({ data, convertTemperature, language }) {
   const {
     temp,
     condition,
@@ -11,7 +11,7 @@ function Today({ DATA, convertTemperature, language }) {
     wind_gust: windGust,
     humidity,
     icon,
-  } = DATA;
+  } = data;
 
   return (
     <div className="today">

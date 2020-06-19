@@ -9,11 +9,11 @@ import MapContainer from '../map/map';
 import { getTranslate, translationKeys } from '../translation';
 
 function Weather({
-  DATA,
+  data,
   mapToken,
   degreeType,
   degreeTypes,
-  LOCATION,
+  location,
   isForecastLoaded,
   updateWeather,
   language,
@@ -24,7 +24,7 @@ function Weather({
     country_name: countryName,
     latitude,
     longitude,
-  } = LOCATION;
+  } = location;
   const {
     now_dt,
     fact,
@@ -34,7 +34,7 @@ function Weather({
         name: timeZone,
       },
     },
-  } = DATA;
+  } = data;
   const updatedTime = new Date(Date.parse(now_dt));
   const [curLocation, setCurLocation] = useState();
 
@@ -73,7 +73,7 @@ function Weather({
       setCurLocation(location);
     };
     translate();
-  }, [language, LOCATION]);
+  }, [language, location]);
 
   function convertTemperature(degree) {
     const result = degreeType !== degreeTypes.fahrenheit ? degree : (degree * 9) / 5 + 32;
@@ -87,7 +87,7 @@ function Weather({
       result.push(
         <FollowingDay
           key={forecasts[i].date_ts}
-          DATA={forecasts[i]}
+          data={forecasts[i]}
           convertTemperature={convertTemperature}
           language={language}
         />
@@ -128,7 +128,7 @@ function Weather({
         </div>
         <div className="details__forecast forecast">
           <div className="forecast__data days">
-            <Today DATA={fact} convertTemperature={convertTemperature} language={language} />
+            <Today data={fact} convertTemperature={convertTemperature} language={language} />
             <div className="days__following">
               {renderFollowingDays()}
             </div>
