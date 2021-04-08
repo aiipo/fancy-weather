@@ -1,0 +1,60 @@
+.search {
+  $scale: 1.03;
+  display: flex;
+  flex: 1 1;
+  justify-content: flex-end;
+  height: 100%;
+  width: 100%;
+  min-width: 300px;
+
+  &__input {
+    padding: 13px 15px;
+    width: 100%;
+    background: rgba(76, 82, 85, 0.4);
+    border: 1px solid rgba(228, 227, 227, 0.2);
+    color: white;
+    font-size: 1.4rem;
+    border-radius: 5px 0 0 5px;
+
+    &:hover {
+      -webkit-transform: scale($scale);
+      transform: scale($scale);
+    }
+
+    &::placeholder {
+      font-size: 0.85em;
+      color: inherit;
+    }
+  }
+
+  &__button {
+    width: 80px;
+    border-radius: 0 5px 5px 0;
+    color: white;
+    text-transform: uppercase;
+    background: rgba(174, 181, 185, 0.5);
+    border: 0;
+
+    &:hover {
+      cursor: pointer;
+      -webkit-transform: scale($scale);
+      transform: scale($scale);
+    }
+  }
+
+  &__clear {
+    position: relative;
+    left: -28px;
+    width: 0;
+    align-self: center;
+    z-index: 1;
+    cursor: pointer;
+
+    &::before {
+      content: 'x';
+      padding: 5px 7px;
+      color: darken(white, 8%);
+      font-size: 1.3em;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+.today {
+  display: flex;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  &__degree {
+    display: flex;
+    align-items: center;
+    font-size: 30vmin;
+    padding-right: 16px;
+
+    .degree {
+    }
+  }
+
+  .details {
+    font-size: 3.2vmin;
+    text-transform: uppercase;
+
+    &__icon {
+      height: 12vw;
+      max-height: 105px;
+
+      .icon {
+        position: relative;
+        left: -15px;
+        max-width: 170px;
+        max-height: 105px;
+        height: 100%;
+
+        .icon__condition {
+          display: flex;
+          height: calc(10% + 10vw);
+          min-height: 16px;
+          max-height: 100%;
+          min-width: 16px;
+        }
+      }
+    }
+
+    .forecast {
+      .wind__gust {
+        text-transform: lowercase;
+      }
+    }
+  }
+}
